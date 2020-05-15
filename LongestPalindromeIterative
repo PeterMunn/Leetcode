@@ -1,0 +1,282 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if len(s) == 0: 
+            return ""
+        elif len(s) == 1:
+            return s
+        else:
+            maxlen1 = 1
+            maxpal1 = s[0]
+            maxlen2 = 1
+            maxpal2 = s[0]
+            maxlen3 = 1
+            maxpal3 = s[0]
+            for i in range(0, len(s)-1):
+                print("loop " + str(i))
+                for j in range(0, (-(-len(s)/2)+1)):  
+                    print(maxpal1 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                    if i-j >= 0 and i+j <= len(s)-1:
+                        print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                        print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen1:
+                                maxpal1 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen1:
+                                maxpal1 = str(s[i])+str(s[i-1])
+                    
+                    if i-j >=0 and i+j <= len(s)-1 and s[i-j] == s[i+j]:
+                        print("HELLO1")
+                        newlen = 2*j+1
+                        print("newlen:" + str(newlen))
+                        if newlen > maxlen1:
+                            print("update")
+                            maxlen1 = newlen
+                            newpal = ""
+                            for k in range(0,2*j+1):
+                                newpal = newpal+str(s[i-j+k])
+                            maxpal1 = newpal
+                    else: 
+                        print("BREAK")
+                        break
+
+                    
+                print("DONE 1")        
+                for j in range(0, (-(-len(s)/2)+1)):  
+                    print(maxpal2 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                    if i-j >= 0 and i+j <= len(s)-1:
+                        print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                        print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen2:
+                                maxpal2 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen2:
+                                maxpal2 = str(s[i])+str(s[i-1])
+                    
+                    if i-j+1 >=0 and i+j <= len(s)-1 and i-j+1 <= i+j and j > 1 and s[i-j+1] == s[i+j]:
+                        print("HELLO2")
+                        newlen = 2*j+2
+                        print("newlen:" + str(newlen))
+                        if newlen > maxlen2:
+                            print("update")
+                            maxlen2 = newlen
+                            newpal = ""
+                            for k in range(0,2*j):
+                                newpal = newpal+str(s[i-j+k])
+                            maxpal2 = newpal
+                            print("upated maxpal:"+ str(maxpal2) + "newlen:" + str(maxlen2))
+                   
+                    else: 
+                        print("BREAK")
+                        break
+                print("Done 2")
+                for j in range(0, (-(-len(s)/2)+1)):  
+                    print(maxpal3 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                    if i-j >= 0 and i+j <= len(s)-1:
+                        print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                        print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen3:
+                                maxpal3 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen3:
+                                maxpal3 = str(s[i])+str(s[i-1])
+
+                    if i-j >=0 and i+j-1 <= len(s)-1 and i-j <= i+j-1 and j > 1 and s[i-j] == s[i+j-1]:
+                        print("HELLO3")
+                        newlen = 2*j+2
+                        print("newlen:" + str(newlen))
+                        if newlen > maxlen3:
+                            print("update")
+                            maxlen3 = newlen
+                            newpal = ""
+                            for k in range(0,2*j):
+                                newpal = newpal+str(s[i-j+k])
+                            maxpal3 = newpal
+                            print("upated maxpal:"+ str(maxpal3) + "newlen:" + str(maxlen3))
+                    else: 
+                        print("BREAK")
+                        break
+            
+        if maxlen1 >= maxlen2 and maxlen1 >= maxlen3:
+            return maxpal1
+        elif maxlen2 >= maxlen1 and maxlen2 >= maxlen3:
+            return maxpal2
+        elif maxlen3 >= maxlen1 and maxlen3 >= maxlen2:
+            return maxpal3
+            
+             
+
+
+"""  //for each character in s, we will check the character before and after, if they are the same, then update the max palindrome length and output, we keep checking, if not, we move on. For each one, if it is longer than max palindromic length, we update this and the output. 
+            
+            //want to have two for loops, one that runs backwards from each character, and one that runs forwards. We need to compare these. We wont ever need to check more than len(s)/2 forwards or backwards, but with division we will have a ceiling so we will use -(-a//b) to get the ceiling of a/b"""
+
+
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if len(s) == 0: 
+            return ""
+        elif len(s) == 1:
+            return s
+        else:
+            maxlen1 = 1
+            maxpal1 = s[0]
+            maxlen2 = 1
+            maxpal2 = s[0]
+            maxlen3 = 1
+            maxpal3 = s[0]
+            for i in range(0, len(s)-1):
+                #print("loop " + str(i))
+                for j in range(0, (-(-len(s)/2)+1)):  
+                    #print(maxpal1 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                    #if i-j >= 0 and i+j <= len(s)-1:
+                        #print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                        #print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen1:
+                                maxpal1 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen1:
+                                maxpal1 = str(s[i])+str(s[i-1])
+                    
+                    if i-j >=0 and i+j <= len(s)-1 and s[i-j] == s[i+j]:
+                        #print("HELLO1")
+                        newlen = 2*j+1
+                        #print("newlen:" + str(newlen))
+                        if newlen > maxlen1:
+                            #print("update")
+                            maxlen1 = newlen
+                            newpal = ""
+                            for k in range(0,2*j+1):
+                                newpal = newpal+str(s[i-j+k])
+                            maxpal1 = newpal
+                    else: 
+                        #print("BREAK")
+                        break
+
+                    
+                #print("DONE 1")        
+                for j in range(1, (-(-len(s)/2)+1)):  
+                    #print(maxpal2 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                   # if i-j >= 0 and i+j <= len(s)-1:
+                      #  print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                     #   print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen2:
+                                maxpal2 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen2:
+                                maxpal2 = str(s[i])+str(s[i-1])
+                    
+                    if i-j+1 >=0 and i+j <= len(s)-1 and i-j+1 <= i+j and j >= 1 and s[i-j+1] == s[i+j]:
+                      #  print("HELLO2")
+                        newlen = 2*j
+                       # print("newlen:" + str(newlen))
+                        if newlen > maxlen2:
+                        #    print("update")
+                            maxlen2 = newlen
+                            newpal = ""
+                            for k in range(0,2*j):
+                                newpal = newpal+str(s[i-j+k+1])
+                            maxpal2 = newpal
+                          #  print("upated maxpal:"+ str(maxpal2) + "newlen:" + str(maxlen2))
+                   
+                    else: 
+                      #  print("BREAK")
+                        break
+              #  print("Done 2")
+                for j in range(1, (-(-len(s)/2)+1)):  
+                  #  print(maxpal3 + " loop " + " i:" +str(i) + " j:" + str(j))
+
+                    #if i-j >= 0 and i+j <= len(s)-1:
+                   #     print("i-j:" + str(i-j) + " s[i-j]:" + s[i-j] + " s[i+j]: " + s[i+j])
+                    if i-j < 0 and i+j>len(s)-1:
+                  #      print("break")
+                        break
+                    if i+1 <= len(s)-1 and s[i+1] != None:
+                        if s[i] == s[i+1]:
+                            newlen = 2
+                            if newlen > maxlen3:
+                                maxpal3 = str(s[i])+str(s[i+1])
+                    if i-1 >= 0 and s[i-1] != None:
+                        if s[i] == s[i-1]:
+                            newlen = 2
+                            if newlen > maxlen3:
+                                maxpal3 = str(s[i])+str(s[i-1])
+
+                    if i-j >=0 and i+j-1 <= len(s)-1 and i-j <= i+j-1 and j >= 1 and s[i-j] == s[i+j-1]:
+                  #      print("HELLO3")
+                        newlen = 2*j
+                     #   print("newlen:" + str(newlen))
+                        if newlen > maxlen3:
+                      #      print("update")
+                            maxlen3 = newlen
+                            newpal = ""
+                            for k in range(0,2*j):
+                                newpal = newpal+str(s[i-j+k])
+                            maxpal3 = newpal
+                      #      print("upated maxpal:"+ str(maxpal3) + "newlen:" + str(maxlen3))
+                    else: 
+                    #    print("BREAK")
+                        break
+            
+        if maxlen1 >= maxlen2 and maxlen1 >= maxlen3:
+            return maxpal1
+        elif maxlen2 >= maxlen1 and maxlen2 >= maxlen3:
+            return maxpal2
+        elif maxlen3 >= maxlen1 and maxlen3 >= maxlen2:
+            return maxpal3
+            
+             
+
+
+"""  //for each character in s, we will check the character before and after, if they are the same, then update the max palindrome length and output, we keep checking, if not, we move on. For each one, if it is longer than max palindromic length, we update this and the output. 
+            
+            //want to have two for loops, one that runs backwards from each character, and one that runs forwards. We need to compare these. We wont ever need to check more than len(s)/2 forwards or backwards, but with division we will have a ceiling so we will use -(-a//b) to get the ceiling of a/b"""
+
+
